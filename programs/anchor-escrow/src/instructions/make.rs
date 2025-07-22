@@ -24,11 +24,11 @@ pub struct Make<'info> {
   pub maker: Signer<'info>,
 
   #[account(mint::token_program = token_program)]
-  // Token to send
+  // Token to send from maker
   pub mint_a: InterfaceAccount<'info, Mint>,
 
   #[account(mint::token_program = token_program)]
-  // Token to receive
+  // Token to receive from taker
   pub mint_b: InterfaceAccount<'info, Mint>,
 
   #[account(
@@ -94,7 +94,7 @@ impl<'info> Make<'info> {
   }
   
   // Deposit 'a' tokens to vault
-  pub fn deposit(&mut self, deposit: u64) -> Result<()> {
+  pub fn deposit_to_vault(&mut self, a_tokens: u64) -> Result<()> {
 
     let transfer_accounts = TransferChecked {
       from: self.maker_ata_a.to_account_info(),
@@ -108,6 +108,6 @@ impl<'info> Make<'info> {
       transfer_accounts
     );
 
-    transfer_checked(cpi_ctx, deposit, self.mint_a.decimals)
+    transfer_checked(cpi_ctx, a_tokens, self.mint_a.decimals)
   }
 }

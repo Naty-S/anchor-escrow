@@ -12,6 +12,7 @@ declare_id!("CVVB7FwsvjpqsdvT1hNuhgWMYgQ3g4SQkBUzDU4tdiKf");
 pub mod anchor_escrow {
     use super::*;
 
+    // Make instruction
     pub fn make(
           ctx: Context<Make>
         , seed: u64
@@ -19,6 +20,12 @@ pub mod anchor_escrow {
         , deposit: u64
     ) -> Result<()> {
         ctx.accounts.init_escrow(seed, receive, &ctx.bumps)?;
-        ctx.accounts.deposit(deposit)
+        ctx.accounts.deposit_to_vault(deposit)
+    }
+
+    // Take instruction
+    pub fn take(ctx: Context<Take>) -> Result<()> {
+        ctx.accounts.transfer_b_to_maker()?;
+        ctx.accounts.transfer_a_to_taker()
     }
 }

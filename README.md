@@ -29,7 +29,7 @@ The box has:
 2. Escrow checks
    1. The tokens sent (`a`) are the correct ones
    2. The amount is the correct one
-3. If all is right then it will send `b` tokens to A and the `a` tokens from the vault to B
+3. If all is right then it will send `b` tokens to A (from B's ATA to A's ATA) and the `a` tokens from the vault to B's ATA
 
 ## Concepts
 
@@ -52,6 +52,12 @@ The box has:
 **.to_account_info()**: when doing cpi
 
 **transfer_checked**: Ensures the correct ammount and token gets transfered, checks the token decimals.
+
+**init_if_needed**: Inits the ATA for Maker if not having one yet.
+
+>Be aware of security implications, program design
+
+**has_one**: 
 
 ## Functions
 
