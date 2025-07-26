@@ -71,7 +71,7 @@ pub struct Take<'info> {
 
   #[account(
     mut,
-    close = maker,
+    close = maker, // The one who gets the money back when closing the account (rent) does it has to be the same as in 'destination'?
     has_one = maker,
     has_one = mint_a,
     has_one = mint_b,
@@ -101,7 +101,10 @@ impl<'info> Take<'info> {
         authority: self.taker.to_account_info(),
     };
 
-    let cpi_ctx = CpiContext::new(self.token_program.to_account_info(), transfer_accounts);
+    let cpi_ctx = CpiContext::new(
+      self.token_program.to_account_info(),
+      transfer_accounts
+    );
 
     transfer_checked(cpi_ctx, self.escrow.receive, self.mint_b.decimals)
   }

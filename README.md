@@ -57,7 +57,12 @@ The box has:
 
 >Be aware of security implications, program design
 
-**has_one**: 
+**has_one**: Verifies account/struct (Escrow) field with the account/pubkey in the instruction (Take),
+so they are the same and the right escrow is called, the same the maker made.
+
+> like having: assert!(self.mint_a.key() == self.escrow.mint_a);
+
+**.set_iiner**:
 
 ## Functions
 
